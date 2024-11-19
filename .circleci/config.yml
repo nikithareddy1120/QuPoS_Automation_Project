@@ -1,0 +1,27 @@
+version: 2.1
+
+workflows:
+  version: 2
+  workflow-name:
+    jobs:
+      - runner
+
+jobs:
+  runner:
+    machine: true 
+    resource_class: nikithareddy1120/jibautomation
+    working_directory: C:\Users\Public\QuPOSWorkDir
+    steps:
+      - checkout
+      - run:
+          name: Run installations
+          shell: cmd.exe
+          command: .\InstallRequirements.bat
+      - run:
+          name: Run JIB Automation as Admin
+          shell: cmd.exe
+          command: .\RunTests.bat
+      - store_test_results:
+          path: Reports
+      - store_artifacts:
+          path: Reports

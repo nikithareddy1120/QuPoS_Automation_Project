@@ -1,0 +1,178 @@
+@qupos
+Feature: childPricingForDrinks Feature # test_project/features/childPricingForDrinks_JQA_9102.feature:2
+
+  @InitialSetup
+  Scenario: Initial setup and Till Operations                                                 # test_project/features/childPricingForDrinks_JQA_9102.feature:5
+    Given the user launches the "Qu POS" desktop application                                  # test_project/features/steps/payPerItem.py:12
+    Then the user should be able to see the "Log In" and "Clock In" buttons                   # test_project/features/steps/payPerItem.py:156
+    When the user enter an employee "ID" on a counter login screen and select "Log In" button # test_project/features/steps/payPerItem.py:18
+    Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"            # test_project/features/steps/payPerItem.py:54
+
+  @childPricingForDrinks
+  Scenario:                                                                                                                     # test_project/features/childPricingForDrinks_JQA_9102.feature:12
+    When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"                                       # test_project/features/steps/payPerItem.py:24
+    Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow" # test_project/features/steps/payPerItem.py:29
+    And the user should be able to see the "Show Open Checks" button on the top navigation menu of the screen in "orderWindow"  # test_project/features/steps/payPerItem.py:29
+    When the user clicks on the "Claim/Close Till" button in "orderWindow"                                                      # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Till Device Selection" popup in "orderWindow"                                      # test_project/features/steps/payPerItem.py:39
+    When the user select "Claim" on an available till and verify the "Till, Successfully Claimed!" text and "current cash"      # test_project/features/steps/payPerItem.py:44
+    And the user clicks on the "close" button on the till pop-up in "orderWindow"                                               # test_project/features/steps/payPerItem.py:49
+    Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"                                              # test_project/features/steps/payPerItem.py:54
+    When the user adds combo item to the order                                                                                  # test_project/features/steps/childPricingForDrinks.py:17
+      | menuOption                 | itemName                               | comboSize         | autoIdOfItem      |
+      | {"auto_id": "47587-56634"} | {"title":"#4 BACON ULTIMATE CHBURGER"} | {"title":"SMALL"} | 47587-56634-48037 |
+    Then each item should display in the cart view on the left side of the screen                                               # test_project/features/steps/payPerItem.py:67
+      | itemsInCart                                           |
+      | {"title":"#4 BACON ULTIMATE CHEESEBURGER COMBO (S)" } |
+    When the user clicks on the "Drinks" button in "orderWindow" and get small Amount for drinks                                # test_project/features/steps/childPricingForDrinks.py:30
+    Then the user should be able to see the "Soft drinks" option in "orderWindow"                                               # test_project/features/steps/childPricingForDrinks.py:26
+    And the user should be able to see the "Coffee" option in "orderWindow"                                                     # test_project/features/steps/childPricingForDrinks.py:26
+    When the user clicks on the "FOUNTAIN DRINK" button in "orderWindow"                                                        # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "COCA-COLA" option in "orderWindow"                                                 # test_project/features/steps/childPricingForDrinks.py:26
+    Then the user should be able to see the "DIET COKE" option in "orderWindow"                                                 # test_project/features/steps/childPricingForDrinks.py:26
+    When the user clicks on the "DIET COKE" button in "orderWindow"                                                             # test_project/features/steps/payPerItem.py:34
+    Then no upCharge for drinks should be added to the total amount, and the item should be displayed in the cart view          # test_project/features/steps/childPricingForDrinks.py:35
+    When the user clicks on the "HOT COFFEE" option in drinks in "orderWindow"                                                  # test_project/features/steps/childPricingForDrinks.py:45
+    Then the user should be able to see the "Regular" option in "orderWindow"                                                   # test_project/features/steps/childPricingForDrinks.py:26
+    And the user should be able to see the "Large" option in "orderWindow"                                                      # test_project/features/steps/childPricingForDrinks.py:26
+    When the user clicks on the "Large" button in "orderWindow"                                                                 # test_project/features/steps/payPerItem.py:34
+    Then the upCharge for drinks should be added to the total amount, and the item should be displayed in the cart view         # test_project/features/steps/childPricingForDrinks.py:39
+    When the user clicks on the "Payment" button in "orderWindow"                                                               # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "ROUND UP DONATION" popup in "orderWindow"                                          # test_project/features/steps/payPerItem.py:39
+    When the user clicks on the "NO THANKS" button in "orderWindow"                                                             # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Cash" payment method in "paymentWindow"                                            # test_project/features/steps/payPerItem.py:117
+    And the "Total" amount should match the total amount displayed in the cart                                                  # test_project/features/steps/payPerItem.py:121
+    When the user clicks on the "Cash" button in "paymentWindow"                                                                # test_project/features/steps/payPerItem.py:34
+    Then the "Due" amount should match the "Total" amount of the items in the cart                                              # test_project/features/steps/payPerItem.py:125
+    When the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"                                      # test_project/features/steps/payPerItem.py:34
+    Then the "Total" amount should be zero and the "No Checks" text should be displayed                                         # test_project/features/steps/payPerItem.py:152
+    When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"                                       # test_project/features/steps/payPerItem.py:24
+    Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow" # test_project/features/steps/payPerItem.py:29
+    When the user clicks on the "Logout" button in "orderWindow"                                                                # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Log In" and "Clock In" buttons                                                     # test_project/features/steps/payPerItem.py:156
+
+@qupos
+Feature: childPricingForSides Feature # test_project/features/childPricingForSides_JQA_9101.feature:2
+
+  @InitialSetup
+  Scenario: Initial setup and Till Operations                                                 # test_project/features/childPricingForSides_JQA_9101.feature:5
+    Given the user launches the "Qu POS" desktop application                                  # test_project/features/steps/payPerItem.py:12
+    Then the user should be able to see the "Log In" and "Clock In" buttons                   # test_project/features/steps/payPerItem.py:156
+    When the user enter an employee "ID" on a counter login screen and select "Log In" button # test_project/features/steps/payPerItem.py:18
+    Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"            # test_project/features/steps/payPerItem.py:54
+
+  @childPricingForSides
+  Scenario:                                                                                                                         # test_project/features/childPricingForSides_JQA_9101.feature:12
+    When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"                                           # test_project/features/steps/payPerItem.py:24
+    Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow"     # test_project/features/steps/payPerItem.py:29
+    And the user should be able to see the "Show Open Checks" button on the top navigation menu of the screen in "orderWindow"      # test_project/features/steps/payPerItem.py:29
+    When the user clicks on the "Claim/Close Till" button in "orderWindow"                                                          # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Till Device Selection" popup in "orderWindow"                                          # test_project/features/steps/payPerItem.py:39
+    When the user select "Claim" on an available till and verify the "Till, Successfully Claimed!" text and "current cash"          # test_project/features/steps/payPerItem.py:44
+    And the user clicks on the "close" button on the till pop-up in "orderWindow"                                                   # test_project/features/steps/payPerItem.py:49
+    Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"                                                  # test_project/features/steps/payPerItem.py:54
+    When the user adds combo item to the order                                                                                      # test_project/features/steps/childPricingForDrinks.py:17
+      | menuOption                 | itemName                               | comboSize         | autoIdOfItem      |
+      | {"auto_id": "47587-56634"} | {"title":"#4 BACON ULTIMATE CHBURGER"} | {"title":"SMALL"} | 47587-56634-48037 |
+    Then each item should display in the cart view on the left side of the screen                                                   # test_project/features/steps/payPerItem.py:67
+      | itemsInCart                                           |
+      | {"title":"#4 BACON ULTIMATE CHEESEBURGER COMBO (S)" } |
+    When the user clicks on the "Sides" button in "orderWindow" and get small Amount of Sides                                       # test_project/features/steps/childPricingForSides.py:12
+    Then the user should be able to see the "Fries" option in "orderWindow"                                                         # test_project/features/steps/childPricingForDrinks.py:26
+    When the user clicks on the "FRENCH FRIES" button in "orderWindow"                                                              # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Medium" option in "orderWindow"                                                        # test_project/features/steps/childPricingForDrinks.py:26
+    And the user should be able to see the "Large" option in "orderWindow"                                                          # test_project/features/steps/childPricingForDrinks.py:26
+    When the user clicks on the "Large" button in "orderWindow"                                                                     # test_project/features/steps/payPerItem.py:34
+    Then the upCharge for large french Fries should be added to the total amount, and the item should be displayed in the cart view # test_project/features/steps/childPricingForSides.py:19
+    When the user clicks on the "3 EGG ROLLS" button in "orderWindow"                                                               # test_project/features/steps/payPerItem.py:34
+    Then the upCharge for 3 EGG ROLLS should be added to the total amount, and the item should be displayed in the cart view        # test_project/features/steps/childPricingForSides.py:33
+    When the user clicks on the "1 EGG ROLL" in sides button in "orderWindow"                                                       # test_project/features/steps/childPricingForSides.py:28
+    Then no upCharge for sides should be added to the total amount, and the item should be displayed in the cart view               # test_project/features/steps/childPricingForSides.py:23
+    When the user clicks on the "Payment" button in "orderWindow"                                                                   # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "ROUND UP DONATION" popup in "orderWindow"                                              # test_project/features/steps/payPerItem.py:39
+    When the user clicks on the "NO THANKS" button in "orderWindow"                                                                 # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Cash" payment method in "paymentWindow"                                                # test_project/features/steps/payPerItem.py:117
+    And the "Total" amount should match the total amount displayed in the cart                                                      # test_project/features/steps/payPerItem.py:121
+    When the user clicks on the "Cash" button in "paymentWindow"                                                                    # test_project/features/steps/payPerItem.py:34
+    Then the "Due" amount should match the "Total" amount of the items in the cart                                                  # test_project/features/steps/payPerItem.py:125
+    When the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"                                          # test_project/features/steps/payPerItem.py:34
+    Then the "Total" amount should be zero and the "No Checks" text should be displayed                                             # test_project/features/steps/payPerItem.py:152
+    When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"                                           # test_project/features/steps/payPerItem.py:24
+    Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow"     # test_project/features/steps/payPerItem.py:29
+    When the user clicks on the "Logout" button in "orderWindow"                                                                    # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Log In" and "Clock In" buttons                                                         # test_project/features/steps/payPerItem.py:156
+
+@qupos
+Feature: payPerItem Feature # test_project/features/payPerItem_JQA_8157.feature:2
+
+  @InitialSetup
+  Scenario: Initial setup and Till Operations                                                 # test_project/features/payPerItem_JQA_8157.feature:5
+    Given the user launches the "Qu POS" desktop application                                  # test_project/features/steps/payPerItem.py:12
+    Then the user should be able to see the "Log In" and "Clock In" buttons                   # test_project/features/steps/payPerItem.py:156
+    When the user enter an employee "ID" on a counter login screen and select "Log In" button # test_project/features/steps/payPerItem.py:18
+    Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"            # test_project/features/steps/payPerItem.py:54
+
+  @payPerItem
+  Scenario:                                                                                                                                           # test_project/features/payPerItem_JQA_8157.feature:12
+    When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"                                                             # test_project/features/steps/payPerItem.py:24
+    Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow"                       # test_project/features/steps/payPerItem.py:29
+    And the user should be able to see the "Show Open Checks" button on the top navigation menu of the screen in "orderWindow"                        # test_project/features/steps/payPerItem.py:29
+    When the user clicks on the "Claim/Close Till" button in "orderWindow"                                                                            # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Till Device Selection" popup in "orderWindow"                                                            # test_project/features/steps/payPerItem.py:39
+    When the user select "Claim" on an available till and verify the "Till, Successfully Claimed!" text and "current cash"                            # test_project/features/steps/payPerItem.py:44
+    And the user clicks on the "close" button on the till pop-up in "orderWindow"                                                                     # test_project/features/steps/payPerItem.py:49
+    Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"                                                                    # test_project/features/steps/payPerItem.py:54
+    When the user adds multiple entree items to the order                                                                                             # test_project/features/steps/payPerItem.py:59
+      | menuOption                 | itemName                           | autoIdOfItem      |
+      | {"auto_id": "47587-47958"} | {"title": "#22 SAUSAGE CROISSANT"} | 47587-47958-48058 |
+      | {"auto_id": "47587-47958"} | {"title": "#23 LOADED BFST"}       | 47587-47958-48016 |
+      | {"auto_id": "47587-56634"} | {"title": "2 TACOS"}               | 47587-56634-47708 |
+      | {"auto_id": "47587-56634"} | {"title": "#1 SOURDOUGH JACK"}     | 47587-56634-47660 |
+    Then each item should display in the cart view on the left side of the screen                                                                     # test_project/features/steps/payPerItem.py:67
+      | itemsInCart                            |
+      | {"title": "SAUSAGE CROISSANT"}         |
+      | {"title": "LOADED BREAKFAST SANDWICH"} |
+    And the subtotal, tax, and total should update as each item is added                                                                              # test_project/features/steps/payPerItem.py:73
+    When the user selects the entrée "SAUSAGE CROISSANT" in the cart in "orderWindow"                                                                 # test_project/features/steps/payPerItem.py:78
+    Then user should see "#22 SAUSAGE CROISSANT" entree is selected in "orderWindow"                                                                  # test_project/features/steps/payPerItem.py:83
+    When the user removes a default modifier "SHELL EGG" by clicking "-" button in "orderWindow"                                                      # test_project/features/steps/payPerItem.py:88
+    Then the text "No SHELL EGG" should be displayed in the cart in "orderWindow"                                                                     # test_project/features/steps/payPerItem.py:93
+    When the user adds a free modifier "MAYO" by clicking "+" button in "orderWindow"                                                                 # test_project/features/steps/payPerItem.py:98
+    Then the text "ADD MAYO" should be displayed in the cart in "orderWindow"                                                                         # test_project/features/steps/payPerItem.py:103
+    When the user adds a priced modifier "JALAPENOS" by clicking on it in "orderWindow"                                                               # test_project/features/steps/payPerItem.py:108
+    Then the text "Add JALAPENOS" should be displayed and the total should reflect the additional price of the modifier                               # test_project/features/steps/payPerItem.py:113
+    When the user clicks on the "Payment" button in "orderWindow"                                                                                     # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "ROUND UP DONATION" popup in "orderWindow"                                                                # test_project/features/steps/payPerItem.py:39
+    When the user clicks on the "NO THANKS" button in "orderWindow"                                                                                   # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Cash" payment method in "paymentWindow"                                                                  # test_project/features/steps/payPerItem.py:117
+    And the "Total" amount should match the total amount displayed in the cart                                                                        # test_project/features/steps/payPerItem.py:121
+    When the user clicks on the "Cash" button in "paymentWindow"                                                                                      # test_project/features/steps/payPerItem.py:34
+    Then the "Due" amount should match the "Total" amount of the items in the cart                                                                    # test_project/features/steps/payPerItem.py:125
+    When the user clicks on the "Pay per Item" button in "paymentWindow"                                                                              # test_project/features/steps/payPerItem.py:34
+    Then the amount of each item in the "Select Check Items to Pay" pop-up should match the amount of the items displayed in the cart                 # test_project/features/steps/payPerItem.py:129
+      | itemsInPayPerItemPopup                               |
+      | {"auto_id": "PayPerItemItemPrice_47587-47958-48058"} |
+      | {"auto_id": "PayPerItemItemPrice_47587-47958-48016"} |
+      | {"auto_id": "PayPerItemItemPrice_47587-56634-47708"} |
+      | {"auto_id": "PayPerItemItemPrice_47587-56634-47660"} |
+    When the user selects the following items in the pop-up, click "OK" button and the total Amount for the selected item should match the due Amount # test_project/features/steps/payPerItem.py:136
+      | itemsInPayPerItemPopup                               |
+      | {"auto_id": "PayPerItemItemPrice_47587-47958-48058"} |
+      | {"auto_id": "PayPerItemItemPrice_47587-47958-48016"} |
+    And the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"                                                             # test_project/features/steps/payPerItem.py:34
+    Then the sum of the "Tendered" amount and the "Due" amount should be equal to the "Total" amount                                                  # test_project/features/steps/payPerItem.py:147
+    When the user clicks on the "Cash" button in "paymentWindow"                                                                                      # test_project/features/steps/payPerItem.py:34
+    And the user clicks on the "Pay per Item" button in "paymentWindow"                                                                               # test_project/features/steps/payPerItem.py:34
+    And the user selects the following items in the pop-up, click "OK" button                                                                         # test_project/features/steps/payPerItem.py:142
+      | itemsInPayPerItemPopup                               |
+      | {"auto_id": "PayPerItemItemPrice_47587-56634-47708"} |
+    And the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"                                                             # test_project/features/steps/payPerItem.py:34
+    Then the sum of the "Tendered" amount and the "Due" amount should be equal to the "Total" amount                                                  # test_project/features/steps/payPerItem.py:147
+    When the user clicks on the "Cash" button in "paymentWindow"                                                                                      # test_project/features/steps/payPerItem.py:34
+    And the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"                                                             # test_project/features/steps/payPerItem.py:34
+    Then the "Total" amount should be zero and the "No Checks" text should be displayed                                                               # test_project/features/steps/payPerItem.py:152
+    When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"                                                             # test_project/features/steps/payPerItem.py:24
+    Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow"                       # test_project/features/steps/payPerItem.py:29
+    When the user clicks on the "Logout" button in "orderWindow"                                                                                      # test_project/features/steps/payPerItem.py:34
+    Then the user should be able to see the "Log In" and "Clock In" buttons                                                                           # test_project/features/steps/payPerItem.py:156
+
