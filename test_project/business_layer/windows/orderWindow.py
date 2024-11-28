@@ -23,7 +23,7 @@ class orderWindow:
             logging.info("Till already claimed!")
             self.verifyCurrentCash()
         else:
-            driver.utilities.click_button(driver.app, locators['orderWindow']['claimButton'], "Claim button", waits_config['veryShortWait'])
+            driver.utilities.click_button(driver.app, locators['orderWindow']['claimButton'], "Claim button", waits_config['shortWait'])
             self.verifyTillClaimedText()
             self.verifyCurrentCash()
         prices.clear()
@@ -52,17 +52,17 @@ class orderWindow:
         self.yamlmanager.write_to_yaml_file(yaml_data={"totalAmountOfItemsInCart":priceOfCombo}, filename="totalAmount")
         prices.append(priceOfCombo)
 
-    def verifyBreakfastEntreeItemInCart(self, itemInCart):
-        driver.utilities.is_element_displayed(driver.app, itemInCart, "Breakfast Entree item in cart", waits_config['veryShortWait'])
+    # def verifyBreakfastEntreeItemInCart(self, itemInCart):
+    #     driver.utilities.is_element_displayed(driver.app, itemInCart, "Breakfast Entree item in cart", waits_config['veryShortWait'])
 
     def verify_items_in_cart(self, itemsInCart):
-        driver.utilities.is_element_displayed(driver.app, itemsInCart, itemsInCart, waits_config['veryShortWait'])
+        driver.utilities.is_element_displayed(driver.app, itemsInCart, itemsInCart, waits_config['shortWait'])
 
     def verifyUpChargeAmount(self, selectedTItemsextInCart, autoIdOfItem, itemName):
         ItemsInCart = driver.utilities.get_text(driver.app, locators['orderWindow']['upChargeAmountInCart'],
                                                 "Items in cart", waits_config['shortWait'])
         self.assertion.assert_contains(ItemsInCart, selectedTItemsextInCart)
-        logging.info(str(selectedTItemsextInCart) + "in cart is displayed")
+        logging.info(str(selectedTItemsextInCart) + " in cart is displayed")
         itemPrice = driver.utilities.get_item_price(driver.app, autoIdOfItem, itemName,
                                                       "Price Of " + str(itemName), waits_config['shortWait'])
         self.yamlmanager.read_from_yaml_file(filename='upChargeAmount')
@@ -74,7 +74,9 @@ class orderWindow:
                                              waits_config['veryShortWait']))
         upChargeAmountInChart = float(round(subtotal, 1)) - float(round(comboPriceOfItem, 1))
         self.assertion.assert_equal(round(upChargeitemPriceforSelectedCombo , 1), round(upChargeAmountInChart, 1))
-        logging.info("Up charge amount for the selected combo item is displayed correctly in the cart")
+        prices.append(upChargeitemPriceforSelectedCombo)
+        self.yamlmanager.write_to_yaml_file(yaml_data={'smallComboPrice' : prices}, filename="upChargeAmount")
+        logging.info("Up charge amount for the selected item is correctly in the cart")
 
     def verifyNoChargeAmountAdded(self, ItemNameInCartOfNoCharge):
         upchargeItemsInCart = driver.utilities.get_text(driver.app, locators['orderWindow']['upChargeAmountInCart'],
@@ -85,6 +87,7 @@ class orderWindow:
         self.yamlmanager.read_from_yaml_file("totalAmount")
         totalAmountOfItem = self.yamlmanager.get_data_from_yaml('totalAmountOfItemsInCart')
         self.assertion.assert_equal(totalAmountOfItem, subtotal)
+        logging.info("No Up charge amount for the selected item is displayed in the cart")
 
     def getSmallAmountPriceOfDrinksOrSides(self, autoIdOfSmallCombo, itemName):
         smallComboPrice = driver.utilities.get_item_price(driver.app, autoIdOfSmallCombo, itemName , "Price Of " + str(itemName), waits_config['shortWait'])
@@ -105,6 +108,7 @@ class orderWindow:
         total.append(prices)
         calculated_total = sum(prices) + float(tax)
         self.assertion.assert_equal(float(totalAmount.replace('$', '')), round(calculated_total, 2))
+        logging.info("The sum of items added to cart is equal to the total amount in the cart")
         totalAmountOfbreakEntreeItem = float(totalAmount.replace('$', ''))
         self.yamlmanager.write_to_yaml_file(yaml_data={'totalAmountOfItemsInCart': totalAmountOfbreakEntreeItem}, filename="totalAmount", )
 
@@ -114,7 +118,7 @@ class orderWindow:
 
     def verifyDefaultModifier(self):
         text = self.verfiyModifiers()
-        self.assertion.assert_contains(text, "No SHELL EGG")
+        self.assertion.assert_contains(text, "No HAM")
 
     def verifyFreeModifier(self):
         text = self.verfiyModifiers()

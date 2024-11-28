@@ -24,20 +24,16 @@ class loginWindow:
     def launchApp(self):
         driver.launch_application_using_subprocess(pywinauto_config["application_path"])
 
-    def verifyloginScreen(self):
-        driver.utilities.is_element_displayed(driver.app, locators['loginWindowLocators']['loginButton'], "LogIn button", waits_config['veryShortWait'])  #Login button
-        driver.utilities.is_element_displayed(driver.app, locators['loginWindowLocators']['clockInButton'], "Clock In button", waits_config['veryShortWait'])
-
     def getAppVersion(self):
-        appVersion = driver.utilities.get_text(driver.app, locators['loginWindowLocators']['appVersion'], "QuPOS Application version in LogIn Window", waits_config['veryShortWait'])
-        self.yamlmanager.write_to_yaml_file(yaml_data={'QuPOSApplicationVersion': appVersion})
+        appVersion = driver.utilities.get_text(driver.app, locators['loginWindow']['appVersion'], "QuPOS Application version in LogIn Window", waits_config['veryShortWait'])
+        self.yamlmanager.write_to_yaml_file(yaml_data={'QuPOSApplicationVersion': appVersion}, filename="QuPOSApplicationVersion")
 
     def clickLoginButton(self):
-        driver.utilities.click_button(driver.app, locators['loginWindowLocators']['loginButton'], "Login button", waits_config['veryShortWait'])  # loginbutton
-        if driver.utilities.waitUntilVisible(driver.app, locators['loginWindowLocators']['administratorButton'], waits_config['veryShortWait']):
+        driver.utilities.click_button(driver.app, locators['loginWindow']['Log In'], "Log In button", waits_config['veryShortWait'])  # loginbutton
+        if driver.utilities.waitUntilVisible(driver.app, locators['loginWindow']['administratorButton'], waits_config['veryShortWait']):
             logging.info("Administrator button is displayed")
-            driver.utilities.click_button(driver.app, locators['loginWindowLocators']['administratorButton'], "Administrator button", waits_config['veryShortWait'])
-            driver.utilities.click_button(driver.app, locators['loginWindowLocators']['clockInLogInButton'], "Clock In & Log In button", waits_config['veryShortWait'])
+            driver.utilities.click_button(driver.app, locators['loginWindow']['administratorButton'], "Administrator button", waits_config['veryShortWait'])
+            driver.utilities.click_button(driver.app, locators['loginWindow']['clockInLogInButton'], "Clock In & Log In button", waits_config['veryShortWait'])
         else:
             logging.info("Application is logged in as an Administrator.")
 

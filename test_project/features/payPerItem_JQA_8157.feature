@@ -1,10 +1,11 @@
-@qupos
+@qpos
 Feature:payPerItem Feature
 
   @InitialSetup
   Scenario: Initial setup and Till Operations
     Given the user launches the "Qu POS" desktop application
-    Then the user should be able to see the "Log In" and "Clock In" buttons
+    Then the user should be able to see the "Log In" button in "loginWindow"
+    And the user should be able to see the "Clock In" button in "loginWindow"
     When the user enter an employee "ID" on a counter login screen and select "Log In" button
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
 
@@ -20,21 +21,21 @@ Feature:payPerItem Feature
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
     When the user adds multiple entree items to the order
     | menuOption                  |    itemName                          |        autoIdOfItem      |
-    | {"auto_id": "47587-47958"}  |  {"title": "#22 SAUSAGE CROISSANT"}  |   47587-47958-48058      |
-    | {"auto_id": "47587-47958"}  |  {"title": "#23 LOADED BFST"}        |   47587-47958-48016      |
+    | {"auto_id": "47587-47958"}  |  {"title": "#21 SUPREME CROISSANT"}  |   47587-47958-48053      |
+    | {"auto_id": "47587-47958"}  |  {"title": "HASH BROWNS"}            |    47587-47958-48066     |
     | {"auto_id": "47587-56634"}  |  {"title": "2 TACOS"}                |   47587-56634-47708      |
-    | {"auto_id": "47587-56634"}  |  {"title": "#1 SOURDOUGH JACK"}      |   47587-56634-47660      |
+    | {"auto_id": "47587-56634"}  |  {"title": "HAMBURGER"}              |   47587-56634-48003      |
     Then each item should display in the cart view on the left side of the screen
-    | itemsInCart                            |
-    | {"title": "SAUSAGE CROISSANT"}         |
-    | {"title": "LOADED BREAKFAST SANDWICH"} |
-#    | {"title": "2 TACOS"}                   |
-#    | {"title": "SOURDOUGH JACK"}            |
+    | itemsInCart                              |
+    | {"title": "SUPREME CROISSANT COMBO", "auto_id":"CheckItemText_Item-0-47587-47958-48053"}     |
+    | {"title": "HASH BROWNS", "auto_id":"CheckItemText_Item-1-47587-47958-48066"}                 |
+    | {"title": "2 TACOS", "auto_id":"CheckItemText_Item-2-47587-56634-47708"}                     |
+    | {"title": "HAMBURGER", "auto_id":"CheckItemText_Item-3-47587-56634-48003"}                   |
     And the subtotal, tax, and total should update as each item is added
-    When the user selects the entrée "SAUSAGE CROISSANT" in the cart in "orderWindow"
-    Then user should see "#22 SAUSAGE CROISSANT" entree is selected in "orderWindow"
-    When the user removes a default modifier "SHELL EGG" by clicking "-" button in "orderWindow"
-    Then the text "No SHELL EGG" should be displayed in the cart in "orderWindow"
+    When the user selects the entrée "SUPREME CROISSANT COMBO" in the cart in "orderWindow"
+    Then user should see "#21 SUPREME CROISSANT" entree is selected in "orderWindow"
+    When the user removes a default modifier "HAM" by clicking "-" button in "orderWindow"
+    Then the text "No HAM" should be displayed in the cart in "orderWindow"
     When the user adds a free modifier "MAYO" by clicking "+" button in "orderWindow"
     Then the text "ADD MAYO" should be displayed in the cart in "orderWindow"
     When the user adds a priced modifier "JALAPENOS" by clicking on it in "orderWindow"
@@ -49,14 +50,14 @@ Feature:payPerItem Feature
     When the user clicks on the "Pay per Item" button in "paymentWindow"
     Then the amount of each item in the "Select Check Items to Pay" pop-up should match the amount of the items displayed in the cart
     | itemsInPayPerItemPopup                                 |
-    | {"auto_id": "PayPerItemItemPrice_47587-47958-48058"}    |
-    | {"auto_id": "PayPerItemItemPrice_47587-47958-48016"}    |
+    | {"auto_id": "PayPerItemItemPrice_47587-47958-48053"}   |
+    | {"auto_id": "PayPerItemItemPrice_47587-47958-48066"}   |
     | {"auto_id": "PayPerItemItemPrice_47587-56634-47708"}   |
-    | {"auto_id": "PayPerItemItemPrice_47587-56634-47660"}   |
+    | {"auto_id": "PayPerItemItemPrice_47587-56634-48003"}   |
     When the user selects the following items in the pop-up, click "OK" button and the total Amount for the selected item should match the due Amount
     |itemsInPayPerItemPopup                                               |
-    | {"auto_id": "PayPerItemItemPrice_47587-47958-48058"}    |
-    | {"auto_id": "PayPerItemItemPrice_47587-47958-48016"}    |
+    | {"auto_id": "PayPerItemItemPrice_47587-47958-48053"}    |
+    | {"auto_id": "PayPerItemItemPrice_47587-47958-48066"}    |
     And the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"
     Then the sum of the "Tendered" amount and the "Due" amount should be equal to the "Total" amount
     When the user clicks on the "Cash" button in "paymentWindow"
@@ -72,4 +73,5 @@ Feature:payPerItem Feature
     When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"
     Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow"
     When the user clicks on the "Logout" button in "orderWindow"
-    Then the user should be able to see the "Log In" and "Clock In" buttons
+    Then the user should be able to see the "Log In" button in "loginWindow"
+    And the user should be able to see the "Clock In" button in "loginWindow"

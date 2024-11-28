@@ -12,18 +12,18 @@ driver, locators = DriverFactory.create_driver(framework_type)
 @step('the user clicks on the "{locator}" button in "{windowType}" and get small Amount of Sides')
 def step_impl(context, locator, windowType):
     commonAction().clickButton("Drinks", "orderWindow")
-    commonAction().clickButton("HOT COFFEE", "orderWindow")
+    commonAction().clickButton("FOUNTAIN DRINK", "orderWindow")
+    commonAction().clickButton("DIET COKE", "orderWindow")
     commonAction().clickButton(locator, windowType)
     orderWindow().getSmallAmountPriceOfDrinksOrSides(locators['orderWindow']['autoIdOfFrenchFries'], locators['orderWindow']['FRENCH FRIES'])
 
-@step('the upCharge for large french Fries should be added to the total amount, and the item should be displayed in the cart view')
+@step('no upCharge for large french Fries should be added to the total amount, and the item should be displayed in the cart view')
 def step_impl(context):
-    orderWindow().verifyUpChargeAmount("FRENCH FRIES, Large", locators['orderWindow']['autoIdOfLargeFrenchFries'], locators['orderWindow']['Large'])
+    orderWindow().verifyNoChargeAmountAdded("FRENCH FRIES, Small")
 
 @step('no upCharge for sides should be added to the total amount, and the item should be displayed in the cart view')
 def step_impl(context):
     orderWindow().verifyNoChargeAmountAdded("1 JUMBO EGG ROLL")
-    orderWindow().verifyAmountOfTheItem()
 
 @step('the user clicks on the "{locator}" in Sides button in "{windowType}"')
 def step_impl(context, locator, windowType):
@@ -33,3 +33,4 @@ def step_impl(context, locator, windowType):
 @step('the upCharge for 3 EGG ROLLS should be added to the total amount, and the item should be displayed in the cart view')
 def step_impl(context):
     orderWindow().verifyUpChargeAmount("3 EGG ROLLS", locators['orderWindow']['autoIdOfThreeEggRolls'], locators['orderWindow']['3 EGG ROLLS'])
+    orderWindow().verifyAmountOfTheItem()

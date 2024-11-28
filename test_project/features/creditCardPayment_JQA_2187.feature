@@ -1,5 +1,5 @@
 @qpos
-Feature:childPricingForSides Feature
+Feature:creditCardPayment Feature
 
   @InitialSetup
   Scenario: Initial setup and Till Operations
@@ -9,7 +9,7 @@ Feature:childPricingForSides Feature
     When the user enter an employee "ID" on a counter login screen and select "Log In" button
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
 
-  @childPricingForSides
+  @creditCardPayment
   Scenario:
     When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"
     Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow"
@@ -19,31 +19,28 @@ Feature:childPricingForSides Feature
     When the user select "Claim" on an available till and verify the "Till, Successfully Claimed!" text and "current cash"
     And the user clicks on the "close" button on the till pop-up in "orderWindow"
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
-    When the user adds combo item to the order
-       | menuOption                  |    itemName                            | comboSize        |        autoIdOfItem      |
-       | {"auto_id": "47587-56634"}  | {"title":"#2A BACON ULTIMATE CHBURGER"}| {"title":"Small"}|   47587-56634-105597-803      |
+
+   When the user adds multiple entree items to the order
+    | menuOption                  |    itemName                          |        autoIdOfItem      |
+    | {"auto_id": "47587-56634"}  |  {"title": "HAMBURGER"}              |   47587-56634-48003      |
     Then each item should display in the cart view on the left side of the screen
-      | itemsInCart                                            |
-      | {"title":"BACON ULTIMATE CHEESEBURGER CMB, Small" }    |
-    When the user clicks on the "Sides" button in "orderWindow" and get small Amount of Sides
-    Then the user should be able to see the "Fries" option in "orderWindow"
-    When the user clicks on the "FRENCH FRIES" button in "orderWindow"
-    Then the user should be able to see the "Small French Fries" option in "orderWindow"
-    And the user should be able to see the "Large French Fries" option in "orderWindow"
-    When the user clicks on the "Small French Fries" button in "orderWindow"
-    Then no upCharge for large french Fries should be added to the total amount, and the item should be displayed in the cart view
-    When the user clicks on the "1 EGG ROLL" button in "orderWindow"
-    Then no upCharge for sides should be added to the total amount, and the item should be displayed in the cart view
-    When the user clicks on the "3 EGG ROLLS" in sides button in "orderWindow"
-    Then the upCharge for 3 EGG ROLLS should be added to the total amount, and the item should be displayed in the cart view
+    | itemsInCart                                                                                |
+    | {"title": "HAMBURGER", "auto_id":"CheckItemText_Item-0-47587-56634-48003"}                  |
+    And the subtotal, tax, and total should update as each item is added
+
+
     When the user clicks on the "Payment" button in "orderWindow"
     Then the user should be able to see the "ROUND UP DONATION" popup in "orderWindow"
     When the user clicks on the "NO THANKS" button in "orderWindow"
-    Then the user should be able to see the "Cash" payment method in "paymentWindow"
+    Then the user should be able to see the "Offline Credit" payment method in "paymentWindow"
     And the "Total" amount should match the total amount displayed in the cart
-    When the user clicks on the "Cash" button in "paymentWindow"
-    Then the "Due" amount should match the "Total" amount of the items in the cart
-    When the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"
+    When the user clicks on the "Offline Credit" button in "paymentWindow"
+    Then the "Due" amount for Offline Credit Card Payment should match the "Total" amount of the items in the cart
+    When the user clicks on the "Apply Payment for Offline Credit Payment" button in "paymentWindow"
+    Then the "Apply Payment" confirmation pop-up and the text "Apply & <Due amount> payment + $0.00 tip, and close check?" should be displayed
+    When the user clicks on the "OK" button in "orderWindow"
+    Then the user should be able to see the "Check Closed!" popup in "orderWindow"
+    When the user clicks on the "OK" button in "orderWindow"
     Then the "Total" amount should be zero and the "No Checks" text should be displayed
     When the user selects the "hamburgerMenu" in the bottom right corner in "orderWindow"
     Then the user should be able to see the "Claim/Close Till" button on the top navigation menu of the screen in "orderWindow"

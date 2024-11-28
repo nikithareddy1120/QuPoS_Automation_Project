@@ -637,6 +637,23 @@ class PywinautoUtilities:
             logging.error(f"Error occurred: {e}")
             return None
 
+    def clickChildLocator(self, app, button_auto_id, control_identifier, friendlyNameOfElement, timeout):
+        window = app[pywinauto_config['window_title']]
+        try:
+            time.sleep(timeout)
+            button_element = window.child_window(auto_id=button_auto_id, control_type="Button")
+            item_static = button_element.child_window(**control_identifier)
+            for child in button_element.children(control_type="Text"):
+                if child.window_text().replace('.', '', 1).isdigit():
+                    text = float(child.click_input())
+                    logging.info(f"{friendlyNameOfElement}: {text}")
+                    # return float(child.window_text())
+            logging.error(f"'{friendlyNameOfElement}' not found.")
+            return None
+        except Exception as e:
+            logging.error(f"Error occurred: {e}")
+            return None
+
     def getDueAmount(self, app, control_identifier: dict, friendly_name: str, timeout):
         """
         Retrieve the numeric text from a specified control within a window.

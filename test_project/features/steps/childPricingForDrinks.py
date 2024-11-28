@@ -10,9 +10,6 @@ logging = log_file.get_logs()
 framework_type = config.get_framework_type()
 driver, locators = DriverFactory.create_driver(framework_type)
 
-@step(u'get locators')
-def step_impl(context):
-    orderWindow().getlocator()
 
 @step('the user adds combo item to the order')
 def step_impl(context):
@@ -38,8 +35,8 @@ def step_impl(context):
 
 @step('the upCharge for drinks should be added to the total amount, and the item should be displayed in the cart view')
 def step_impl(context):
-    orderWindow().verifyUpChargeAmount("HIGH MOUNTAIN COFFEE, Large", locators['orderWindow']['autoIdOfLargeHotCoffee'], locators['orderWindow']['Large'])
-    commonAction().clickButton('Regular', 'orderWindow')
+    orderWindow().verifyUpChargeAmount("VANILLA SWEET CREAM ICED COFFEE, Large", locators['orderWindow']['autoIdOfLargeVanillaIcedCoffee'], locators['orderWindow']['Large'])
+    # commonAction().clickButton('Regular', 'orderWindow')
     orderWindow().verifyAmountOfTheItem()
 
 @step('the user clicks on the "{locator}" option in drinks in "{windowType}"')
@@ -47,3 +44,6 @@ def step_impl(context, locator, windowType):
     orderWindow().shrinkExpandedMenu(locators['orderWindow']['shrinkFOUNTAINDRINK'])
     commonAction().clickButton(locator, windowType)
 
+# @step('the user should be able to see the "Regular" and "Large" option in "orderWindow"')
+# def step_impl(context, locator, windowType):
+#     orderWindow().verifySizeOptions()

@@ -2,12 +2,16 @@ import json
 from test_project.business_layer.windows.commonAction import commonAction
 from test_project.business_layer.windows.loginWindow import loginWindow
 from test_project.business_layer.windows.orderWindow import orderWindow
-import log_file
 from behave import *
-
+import log_file
+from config.config_reader import config
+from core_layer.driver_manager.driver_factory import DriverFactory
 from test_project.business_layer.windows.paymentWindow import paymentWindow
 
 logging = log_file.get_logs()
+framework_type = config.get_framework_type()
+driver, locators = DriverFactory.create_driver(framework_type)
+
 
 @given(u'the user launches the "Qu POS" desktop application')
 def step_impl(context):
@@ -90,7 +94,7 @@ def step_impl(context, locator, windowType):
     commonAction().clickButton(locator, windowType)
 
 
-@step(u'the text "No SHELL EGG" should be displayed in the cart in "orderWindow"')
+@step(u'the text "No HAM" should be displayed in the cart in "orderWindow"')
 def step_impl(context):
     orderWindow().verifyDefaultModifier()
 
@@ -124,7 +128,7 @@ def step_impl(context):
 
 @step(u'the "Due" amount should match the "Total" amount of the items in the cart')
 def step_impl(context):
-    paymentWindow().verifyDueAmountForCashPayment()
+    paymentWindow().verifyDueAmount(locators['paymentWindow']['dueAmountCash'])
 
 @step(u'the amount of each item in the "Select Check Items to Pay" pop-up should match the amount of the items displayed in the cart')
 def step_impl(context):
@@ -138,7 +142,6 @@ def step_impl(context):
     items_locators = [eval(row['itemsInPayPerItemPopup']) for row in context.table]
     paymentWindow().selectItemsForPaymentAndVerifyDueAmount(items_locators)
 
-
 @step(u'the user selects the following items in the pop-up, click "OK" button')
 def step_impl(context):
     items_locators = [eval(row['itemsInPayPerItemPopup']) for row in context.table]
@@ -148,11 +151,7 @@ def step_impl(context):
 def step_impl(context):
     paymentWindow().verifySumOfDueAndTenderedAmount()
 
-
 @step(u'the "Total" amount should be zero and the "No Checks" text should be displayed')
 def step_impl(context):
     orderWindow().verifyPaymentSuccessful()
 
-@step(u'the user should be able to see the "Log In" and "Clock In" buttons')
-def step_impl(context):
-    loginWindow().verifyloginScreen()

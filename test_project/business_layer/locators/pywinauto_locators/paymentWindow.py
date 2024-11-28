@@ -1,8 +1,8 @@
 paymentWindow = {
-    "offlineCreditButton": {"title": "Offline Credit", "auto_id": "Offline Credit", "control_type": "Button"},
+    "Offline Credit": {"title": "Offline Credit", "auto_id": "Offline Credit", "control_type": "Button"},
     "checkTotalAmount": {"auto_id": "TextBlock_CheckTotal"},
     "dueAmountOfflineCredit": {"auto_id": "ExternalPaymentView_SetAmount_Button_Offline Credit"},
-    "applyPaymentForOfflineCreditPaymentMethod": {"auto_id": "ExternalPaymentView_ApplyPayment_Button_Offline Credit"},
+    "Apply Payment for Offline Credit Payment": {"auto_id": "ExternalPaymentView_ApplyPayment_Button_Offline Credit"},
     "applyPaymentConfirmationText": {"auto_id": "PaymentsConfirmationView_Details_TextBlock"},
     "applyPaymentConfirmationPopup": {"auto_id": "PaymentsConfirmationView_Title_TextBlock"},
     "Cash": {"title":"Cash", "auto_id":"Cash", "control_type":"Button"},
