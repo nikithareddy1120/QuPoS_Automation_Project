@@ -231,6 +231,27 @@ Feature: payPerItem Feature # test_project/features/payPerItem_JQA_8157.feature:
     Then the user should be able to see the "Log In" button in "loginWindow"                                                                          # test_project/features/steps/verifyNewVersion.py:11
     And the user should be able to see the "Clock In" button in "loginWindow"                                                                         # test_project/features/steps/verifyNewVersion.py:11
 
+@pp
+Feature: placeOloOrder Feature # test_project/features/placeOloOrder_JQA_2477.feature:2
+
+  @placeoloorder
+  Scenario:                                                                                      # test_project/features/placeOloOrder_JQA_2477.feature:5
+    Given The user launches the "web" application                                                # None
+    Then user should be able to see "DOORDASH" logo and "JITB Olo Testing" text                  # None
+    When the user selects the item "Sourdough Smashed Jack"                                      # None
+    Then the item modifications pop-up should be displayed                                       # None
+    And the amount should be reflected in the "Add to cart" section at the bottom of the screen  # None
+    When the user clicks on the "Add to cart" button                                             # None
+    Then user should be able to see "DOORDASH" logo and "JITB Olo Testing" text                  # None
+    When the user clicks on the "Go to cart" button                                              # None
+    Then the item added to the cart and the corresponding amount should be displayed correctly   # None
+    When the user clicks on the "Checkout" button                                                # None
+    Then the "Account details" and "Shipping details" sections should be displayed               # None
+    When the user clicks on the "Pickup" option                                                  # None
+    Then the address should be displayed                                                         # None
+    When the user clicks on the "Place pickup order" button                                      # None
+    Then the "Preparing your order" text and the subtotal amount of the item should be displayed # None
+
 @qpos
 Feature: verifyNewVersion Feature # test_project/features/verifyNewVersion_JQA_2230.feature:2
 

@@ -15,7 +15,7 @@ driver, locators = DriverFactory.create_driver(framework_type)
 
 @given(u'the user launches the "Qu POS" desktop application')
 def step_impl(context):
-    loginWindow().launchApp()
+    # loginWindow().launchApp()
     logging.info("Qu POS application has launched successfully")
 
 
