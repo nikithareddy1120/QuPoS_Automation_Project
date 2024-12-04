@@ -21,7 +21,7 @@ def capture_screenshot(scenario):
         logging.info(screenshot_path)
         driver.app.top_window().set_focus()
         driver.app.top_window().capture_as_image().save(screenshot_path)
-        driver.close_application()
+        # driver.close_application()
         return screenshot_path
     except Exception as e:
         logging.error(f"Error capturing screenshot: {e}")
@@ -41,7 +41,7 @@ def before_all(context):
     context.driver, context.locators = DriverFactory.create_driver(framework_type)
     app_path = DriverFactory.get_app_path(framework_type)
     context.driver.launch_application_using_subprocess(app_path)
-    time.sleep(15)
+    time.sleep(10)
     def embed_data(mime_type, data, caption):
         non_empty_data = " " if not data else data
         for formatter in context._runner.formatters:
@@ -50,10 +50,10 @@ def before_all(context):
                 return
     context.embed = embed_data
 
-def after_all(context):
-    try:
-        if hasattr(context, "driver"):
-            context.driver.close_application()
-            logging.info("Application closed after all feature files execution.")
-    except Exception as e:
-        logging.error(f"Error during application closure: {e}")
+# def after_all(context):
+#     try:
+#         if hasattr(context, "driver"):
+#             context.driver.close_application()
+#             logging.info("Application closed after all feature files execution.")
+#     except Exception as e:
+#         logging.error(f"Error during application closure: {e}")

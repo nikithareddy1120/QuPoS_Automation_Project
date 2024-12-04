@@ -82,9 +82,9 @@ class PywinautoDriver(ApplicationDriver, metaclass=SingletonABCMeta):
             time.sleep(waits_config['longWait'])
             proc.communicate()
             logging.info(proc.pid)
-            logging.info("Application launched successfully with window title")
             desktop = Application(backend="uia")
             self.app = desktop.connect(title=pywinauto_config['window_title'])
+            logging.info("Application launched successfully with subprocess")
         except Exception as e:
             logging.warning(f"Failed to launch application using window title: {e}. Trying process ID method.")
             try:
