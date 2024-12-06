@@ -60,13 +60,14 @@ def step_impl(context, locator, windowType):
     commonAction().isButtonDisplayed(locator, windowType)
 
 
-@step('the user adds multiple entree items to the order')
+@step('the user adds multiple items to the order')
 def step_impl(context):
     for row in context.table:
         menuOption = json.loads(row['menuOption'])
         itemName = json.loads(row['itemName'])
         autoIdOfItem = row['autoIdOfItem']
-        orderWindow().addEntreeItemToCart(menuOption, itemName, autoIdOfItem)
+        category = row['category']
+        orderWindow().addItemsToCart(menuOption, itemName, autoIdOfItem, category)
 
 @step(u'each item should display in the cart view on the left side of the screen')
 def step_impl(context):
@@ -134,18 +135,20 @@ def step_impl(context):
 def step_impl(context):
     for row in context.table:
         itemsInPayPerItemPopup = json.loads(row['itemsInPayPerItemPopup'])
-        paymentWindow().getItemPriceInPayPerItemPopup(itemsInPayPerItemPopup)
+        itemName = row['itemName']
+        paymentWindow().getItemPriceInPayPerItemPopup(itemsInPayPerItemPopup, itemName)
     paymentWindow().verifyItemPriceInPayPerItemPopup()
 
 @step(u'the user selects the following items in the pop-up, click "OK" button and the total Amount for the selected item should match the due Amount')
-def step_impl(context):
-    items_locators = [eval(row['itemsInPayPerItemPopup']) for row in context.table]
-    paymentWindow().selectItemsForPaymentAndVerifyDueAmount(items_locators)
+def step_impl(context, ):
+    itemsInPayPerItemPopup = [eval(row['itemsInPayPerItemPopup']) for row in context.table]
+    paymentWindow().selectItemsForPaymentAndVerifyDueAmount(itemsInPayPerItemPopup)
 
 @step(u'the user selects the following items in the pop-up, click "OK" button')
 def step_impl(context):
-    items_locators = [eval(row['itemsInPayPerItemPopup']) for row in context.table]
-    paymentWindow().selectItemsForPayment(items_locators)
+    for row in context.table:
+        itemsInPayPerItemPopup = json.loads(row['itemsInPayPerItemPopup'])
+        paymentWindow().selectItemsForPayment(itemsInPayPerItemPopup)
 
 @step(u'the sum of the "Tendered" amount and the "Due" amount should be equal to the "Total" amount')
 def step_impl(context):

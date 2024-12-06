@@ -34,26 +34,20 @@ class orderWindow:
     def verifyCurrentCash(self):
         driver.utilities.is_element_displayed(driver.app, locators['orderWindow']['current cash'], "Current cash text", waits_config['veryShortWait']) #current cash
 
-    def addEntreeItemToCart(self, menuOption, itemName, auto_id):
-        driver.utilities.click_button(driver.app, menuOption, menuOption, waits_config['shortWait'])
-        EntreeItemPrice = driver.utilities.get_item_price(driver.app, auto_id,
-                                                                   locators['orderWindow']['breakfastEntreeItem'],
-                                                                   "Price of ", waits_config['shortWait'])
+    def addItemsToCart(self, menuOption, itemName, auto_id, category):
+        driver.utilities.click_button(driver.app, menuOption, category, waits_config['shortWait'])
+        EntreeItemPrice = driver.utilities.get_item_price(driver.app, auto_id, itemName, "Price of " + str(itemName), waits_config['shortWait'])
         driver.utilities.click_button(driver.app, itemName , itemName, waits_config['veryShortWait'])
         prices.append(EntreeItemPrice)
 
-    def addComboItemToCart(self, menuOption, itemName, comboSize, auto_id):
-        driver.utilities.click_button(driver.app, menuOption, menuOption, waits_config['shortWait'])
+    def addComboItemToCart(self, menuOption, itemName, comboSize, auto_id, category):
+        driver.utilities.click_button(driver.app, menuOption, category, waits_config['shortWait'])
         driver.utilities.click_button(driver.app, itemName, itemName, waits_config['veryShortWait'])
-        priceOfCombo = float(driver.utilities.get_item_price(driver.app, auto_id,
-                                                       locators['orderWindow']['breakfastEntreeItem'],
-                                                       "price of" + str(itemName) , waits_config['shortWait']))
+        priceOfCombo = float(driver.utilities.get_item_price(driver.app, auto_id, itemName,
+                                                       "price of " + str(itemName) , waits_config['shortWait']))
         driver.utilities.click_button(driver.app, comboSize, comboSize, waits_config['veryShortWait'])
         self.yamlmanager.write_to_yaml_file(yaml_data={"totalAmountOfItemsInCart":priceOfCombo}, filename="totalAmount")
         prices.append(priceOfCombo)
-
-    # def verifyBreakfastEntreeItemInCart(self, itemInCart):
-    #     driver.utilities.is_element_displayed(driver.app, itemInCart, "Breakfast Entree item in cart", waits_config['veryShortWait'])
 
     def verify_items_in_cart(self, itemsInCart):
         driver.utilities.is_element_displayed(driver.app, itemsInCart, itemsInCart, waits_config['shortWait'])

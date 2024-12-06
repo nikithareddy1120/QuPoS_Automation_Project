@@ -36,41 +36,6 @@ class DriverFactory:
             logging.error(f"An unexpected error occurred while creating the driver: {e}")
             raise
 
-# class DriverFactory:
-#     """
-#     Factory class to create and return the appropriate driver instance and locator loader based on the framework type.
-#     """
-#
-#     @staticmethod
-#     def create_driver(framework_type):
-#         try:
-#             logging.info(f"Creating driver for framework: {framework_type}")
-#
-#             # Create the driver and locator loader based on framework type
-#             if framework_type == 'pywinauto':
-#                 driver = PywinautoDriver()
-#                 locator_loader = PywinautoLocatorLoader(framework_type)
-#             elif framework_type == 'winappdriver':
-#                 driver = WinAppDriver()
-#                 locator_loader = WinAppDriverLocatorLoader(framework_type)
-#             else:
-#                 logging.error(f"Unknown framework type: {framework_type}")
-#                 raise ValueError(f"Unknown framework type: {framework_type}")
-#
-#             # Load locators and log the loaded locators for debugging
-#             locator_loader.load_locators()
-#             logging.debug(f"Loaded locators for '{framework_type}': {str(locator_loader.locators)}")
-#
-#             # Return both the driver instance and the locator loader instance
-#             return driver, locator_loader
-#
-#         except ValueError as ve:
-#             logging.error(f"Driver creation failed due to an invalid framework type: {ve}")
-#             raise
-#         except Exception as e:
-#             logging.error(f"An unexpected error occurred while creating the driver: {e}")
-#             raise
-
     @staticmethod
     def get_app_path(framework_type):
         """Retrieve the application path dynamically based on the framework type."""

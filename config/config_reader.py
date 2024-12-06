@@ -1,5 +1,4 @@
 import configparser
-import json
 
 import log_file
 
@@ -46,7 +45,7 @@ class ConfigReader:
                 'application_path': self.config.get('WinAppDriver', 'application_path'),
                 'url': self.config.get('WinAppDriver', 'url')
             }
-            logging.info("WinAppDriver configuration retrieved successfully.")
+            # logging.info("WinAppDriver configuration retrieved successfully.")
             return winappdriver_config
         except configparser.NoSectionError as e:
             logging.error(f"WinAppDriver section missing in the config file: {str(e)}")
@@ -68,7 +67,7 @@ class ConfigReader:
                 'application_path': self.config.get('Pywinauto', 'application_path'),
                 'window_title': self.config.get('Pywinauto', 'window_title')
             }
-            logging.info("Pywinauto configuration retrieved successfully.")
+            # logging.info("Pywinauto configuration retrieved successfully.")
             return pywinauto_config
         except configparser.NoSectionError as e:
             logging.error(f"Pywinauto section missing in the config file: {str(e)}")
@@ -92,7 +91,7 @@ class ConfigReader:
                 'longWait': int(self.config.get('waits', 'longWait')),
                 'veryLongWait': int(self.config.get('waits', 'veryLongWait'))
             }
-            logging.info("waits configuration retrieved successfully.")
+            # logging.info("waits configuration retrieved successfully.")
             return wait_config
         except configparser.NoSectionError as e:
             logging.error(f"Waits section missing in the config file: {str(e)}")
@@ -114,7 +113,7 @@ class ConfigReader:
             pin_config = {
                 'employeeId': self.config.get('employeeId', 'employeeId'),
             }
-            logging.info("employee Id configuration retrieved successfully.")
+            # logging.info("employee Id configuration retrieved successfully.")
             return pin_config
         except configparser.NoSectionError as e:
             logging.error(f"employee Id section missing in the config file: {str(e)}")
@@ -125,35 +124,5 @@ class ConfigReader:
         except Exception as e:
             logging.error(f"Error retrieving employee Id configuration: {str(e)}")
             raise
-
-    def get_breakfastEntreeItem_config(self):
-        """
-        Retrieves the breakfast Entree Item from the configuration file.
-            :returns: A dictionary containing employee id configuration.
-        """
-        try:
-            breaksfastEntreeItem_config = {
-                'breakfastLocator': self.config.get('breakfastEntreeItem', 'breakfastLocator'),
-                'breakfastEntreeItem': self.config.get('breakfastEntreeItem', 'breakfastEntreeItem'),
-                'breakfastEntreeItemCartView': json.loads(self.config.get('breakfastEntreeItem', 'breakfastEntreeItemCartView')),
-                'autoIdOfBreakfastEntreeItem': self.config.get('breakfastEntreeItem', 'autoIdOfBreakfastEntreeItem'),
-            }
-            logging.info("breakfast Entree Item configuration retrieved successfully.")
-            return breaksfastEntreeItem_config
-        except configparser.NoSectionError as e:
-            logging.error(f"breakfast Entree Item section missing in the config file: {str(e)}")
-            raise
-        except configparser.NoOptionError as e:
-            logging.error(f"breakfast Entree Item option missing in the Pywinauto section: {str(e)}")
-            raise
-        except Exception as e:
-            logging.error(f"Error retrieving breakfast Entree Item configuration: {str(e)}")
-            raise
-
-    def get_items_by_category(self, category):
-        items = {}
-        for key, value in self.config.items(category):
-            items[key] = json.loads(value)
-        return items
 
 config = ConfigReader()

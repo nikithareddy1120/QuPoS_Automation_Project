@@ -18,7 +18,8 @@ def step_impl(context):
         itemName = json.loads(row['itemName'])
         comboSize = json.loads(row['comboSize'])
         autoIdOfItem = row['autoIdOfItem']
-        orderWindow().addComboItemToCart(menuOption, itemName, comboSize, autoIdOfItem)
+        category = row['category']
+        orderWindow().addComboItemToCart(menuOption, itemName, comboSize, autoIdOfItem, category)
 
 @step('the user should be able to see the "{locator}" option in "{windowType}"')
 def step_impl(context, locator, windowType):

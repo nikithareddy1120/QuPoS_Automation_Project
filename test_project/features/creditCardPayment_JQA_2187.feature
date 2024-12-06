@@ -20,9 +20,9 @@ Feature:creditCardPayment Feature
     And the user clicks on the "close" button on the till pop-up in "orderWindow"
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
 
-   When the user adds multiple entree items to the order
-    | menuOption                  |    itemName                          |        autoIdOfItem      |
-    | {"auto_id": "47587-56634"}  |  {"title": "HAMBURGER"}              |   47587-56634-48003      |
+   When the user adds multiple items to the order
+    | menuOption                  |    itemName                          |        autoIdOfItem      |  category  |
+    | {"auto_id": "47587-56634"}  |  {"title": "HAMBURGER"}              |   47587-56634-48003      | Breakfast  |
     Then each item should display in the cart view on the left side of the screen
     | itemsInCart                                                                                |
     | {"title": "HAMBURGER", "auto_id":"CheckItemText_Item-0-47587-56634-48003"}                  |

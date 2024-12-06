@@ -1,6 +1,3 @@
-from config.config_reader import config
-breakfastEntreeItem_config = config.get_breakfastEntreeItem_config()
-
 orderWindow = {
     "Drive-Thru" : {"auto_id":"ComboBox_CheckTypeSelector"},
     "hamburgerMenu" : {"auto_id":"RegisterPage_AppBar_Show_Button"},
@@ -11,7 +8,6 @@ orderWindow = {
     "Till Device Selection" : {"title":"Till Device Selection"},
     "reconcileButton" : {"title":"Reconcile"},
     "Till, Successfully Claimed!" : {"title":"Till, Successfully Claimed!"},
-    # "claimButton" : {"title":"Claim"},
     "claimButton" : {"auto_id":"TillDeviceSelectionItemView_Claim1_Button"},
     "current cash" : {"title":"Current cash"},
     "close" : {"title":"", "auto_id":"TillDeviceSelectionView_Close_Button"},
@@ -26,12 +22,10 @@ orderWindow = {
     "OK" : {"title": "OK"},
     "Check Closed!" : {"title": "Check Closed!"},
     "noCheckText" : {"title" : "No\nCheck", "auto_id" : "CheckView_NoCheck_Text", "control_type" : "Text"},
-    "autoIdOfBreakfastEntreeItem": breakfastEntreeItem_config['autoIdOfBreakfastEntreeItem'],
-    "breakfastEntreeItem" : {"title" : breakfastEntreeItem_config['breakfastEntreeItem']},
-    "breakfastEntreeItemInCart": {"title": breakfastEntreeItem_config['breakfastEntreeItemCartView'], "auto_id":"CheckItemText_Item-0-47587-47958-48058", "control_type":"Text"},
+    # "breakfastEntreeItem" : {"title" : breakfastEntreeItem_config['breakfastEntreeItem']},
+    # "breakfastEntreeItemInCart": {"title": breakfastEntreeItem_config['breakfastEntreeItemCartView'], "auto_id":"CheckItemText_Item-0-47587-47958-48058", "control_type":"Text"},
     "SUPREME CROISSANT COMBO" : {"title": "SUPREME CROISSANT COMBO"},
     "#21 SUPREME CROISSANT" : {"title": "#21 SUPREME CROISSANT"},
-    # "SHELL EGG" : {"auto_id" : "DecrementQty_47587-47958-48058-56869-56646"},
     "HAM" : {"auto_id" : "DecrementQty_47587-47958-48053-81212-48038-56642-56645"},
     "modifiersInCart" : {"auto_id": "CheckItemDetail_Item-0-47587-47958-48053"},
     "MAYO": {"title": "MAYO"},
@@ -44,7 +38,6 @@ orderWindow = {
     "VANILLA SC ICED COFFEE" : {"title": "VANILLA SC ICED COFFEE"},
     "Regular" : {"auto_id":"47587-56634-105597-49678-47726-806"},
     "Large" : {"auto_id":"47587-56634-105597-49678-47726-805"},
-    # "Medium" : {"title":"Medium"},
     "Small French Fries" : {"auto_id":"47587-56634-105597-49677-47718-803"},
     "Large French Fries": {"auto_id": "47587-56634-105597-49677-47718-805"},
     "FOUNTAIN DRINK" : {"title":"FOUNTAIN DRINK"},

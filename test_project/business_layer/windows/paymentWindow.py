@@ -46,8 +46,8 @@ class paymentWindow:
             logging.info("Total amount of items is equal to the amount in the Apply Payment confirmation popup")
             logging.info(f"Apply ${totalAmountOfbreakEntreeItem} 'payment + $0.00 tip, and close check? text is displayed")
 
-    def getItemPriceInPayPerItemPopup(self, locator):
-        priceOfItem = float(driver.utilities.get_text(driver.app, locator, locator, waits_config['shortWait']))
+    def getItemPriceInPayPerItemPopup(self, locator, itemName):
+        priceOfItem = float(driver.utilities.get_text(driver.app, locator, itemName, waits_config['shortWait']))
         prices.append(priceOfItem)
         self.yamlmanager.write_to_yaml_file(yaml_data={"ListOfPricesOfItemsInPayPerItemPopup": prices}, filename="pricesOfItemsListInPayPerItemPopup")
 
@@ -61,7 +61,7 @@ class paymentWindow:
 
     def selectItemsForPaymentAndVerifyDueAmount(self, items_locators):
         prices = []
-        gst_percentage = 0.7219
+        gst_percentage = 8.7156
         for locator in items_locators:
             price_of_item = float(driver.utilities.get_text(driver.app, locator, locator, waits_config['shortWait']))
             gst_amount = price_of_item * (gst_percentage / 100)
@@ -73,19 +73,13 @@ class paymentWindow:
         price_of_items_selected = round(sum(prices), 2)
         due_amount = float(driver.utilities.getDueAmount(driver.app, locators['paymentWindow']['dueAmountCash'], "Due Amount",
                                           waits_config['veryShortWait']))
-        # self.assertion.assert_equal(price_of_items_selected, due_amount)
-        # logging.info("Amount of items selected in pay per item is equal to the due amount")
-        # logging.info(f"Total price with GST: {price_of_items_selected}, Due Amount: {due_amount}")
+        self.assertion.assert_equal(price_of_items_selected, due_amount)
+        logging.info("Amount of items selected in pay per item is equal to the due amount")
+        logging.info(f"Total price with GST: {price_of_items_selected}, Due Amount: {due_amount}")
 
-    def selectItemsForPayment(self, items_locators):
-        prices = []
-        gst_percentage = 17.5004
-        for locator in items_locators:
-            price_of_item = float(driver.utilities.get_text(driver.app, locator, locator, waits_config['shortWait']))
-            gst_amount = price_of_item * (gst_percentage / 100)
-            final_price_with_gst = price_of_item + gst_amount
-            prices.append(final_price_with_gst)
-            driver.utilities.click_button(driver.app, locator, locator, waits_config['shortWait'])
+    def selectItemsForPayment(self, locator):
+        # float(driver.utilities.get_text(driver.app, locator, locator, waits_config['shortWait']))
+        driver.utilities.click_button(driver.app, locator, locator, waits_config['shortWait'])
         driver.utilities.click_button(driver.app, locators['orderWindow']['OK'], "Ok button",
                                       waits_config['veryShortWait'])
 

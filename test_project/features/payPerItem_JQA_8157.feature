@@ -19,12 +19,12 @@ Feature:payPerItem Feature
     When the user select "Claim" on an available till and verify the "Till, Successfully Claimed!" text and "current cash"
     And the user clicks on the "close" button on the till pop-up in "orderWindow"
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
-    When the user adds multiple entree items to the order
-    | menuOption                  |    itemName                          |        autoIdOfItem      |
-    | {"auto_id": "47587-47958"}  |  {"title": "#21 SUPREME CROISSANT"}  |   47587-47958-48053      |
-    | {"auto_id": "47587-47958"}  |  {"title": "HASH BROWNS"}            |    47587-47958-48066     |
-    | {"auto_id": "47587-56634"}  |  {"title": "2 TACOS"}                |   47587-56634-47708      |
-    | {"auto_id": "47587-56634"}  |  {"title": "HAMBURGER"}              |   47587-56634-48003      |
+    When the user adds multiple items to the order
+    | menuOption                  |    itemName                          |        autoIdOfItem      | category       |
+    | {"auto_id": "47587-47958"}  |  {"title": "#21 SUPREME CROISSANT"}  |   47587-47958-48053      | Breakfast      |
+    | {"auto_id": "47587-47958"}  |  {"title": "HASH BROWNS"}            |   47587-47958-48066      | Breakfast      |
+    | {"auto_id": "47587-56634"}  |  {"title": "2 TACOS"}                |   47587-56634-47708      | Lunch/Dinner   |
+    | {"auto_id": "47587-56634"}  |  {"title": "HAMBURGER"}              |   47587-56634-48003      | Lunch/Dinner   |
     Then each item should display in the cart view on the left side of the screen
     | itemsInCart                              |
     | {"title": "SUPREME CROISSANT COMBO", "auto_id":"CheckItemText_Item-0-47587-47958-48053"}     |
@@ -49,13 +49,13 @@ Feature:payPerItem Feature
     Then the "Due" amount should match the "Total" amount of the items in the cart
     When the user clicks on the "Pay per Item" button in "paymentWindow"
     Then the amount of each item in the "Select Check Items to Pay" pop-up should match the amount of the items displayed in the cart
-    | itemsInPayPerItemPopup                                 |
-    | {"auto_id": "PayPerItemItemPrice_47587-47958-48053"}   |
-    | {"auto_id": "PayPerItemItemPrice_47587-47958-48066"}   |
-    | {"auto_id": "PayPerItemItemPrice_47587-56634-47708"}   |
-    | {"auto_id": "PayPerItemItemPrice_47587-56634-48003"}   |
+    | itemsInPayPerItemPopup                                 |  itemName      |
+    | {"auto_id": "PayPerItemItemPrice_47587-47958-48053"}   | SUPREME CROISSANT COMBO   |
+    | {"auto_id": "PayPerItemItemPrice_47587-47958-48066"}   | HASH BROWNS |
+    | {"auto_id": "PayPerItemItemPrice_47587-56634-47708"}   | 2 TACOS    |
+    | {"auto_id": "PayPerItemItemPrice_47587-56634-48003"}   | HAMBURGER  |
     When the user selects the following items in the pop-up, click "OK" button and the total Amount for the selected item should match the due Amount
-    |itemsInPayPerItemPopup                                               |
+    | itemsInPayPerItemPopup                                   |
     | {"auto_id": "PayPerItemItemPrice_47587-47958-48053"}    |
     | {"auto_id": "PayPerItemItemPrice_47587-47958-48066"}    |
     And the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"
@@ -63,7 +63,7 @@ Feature:payPerItem Feature
     When the user clicks on the "Cash" button in "paymentWindow"
     And the user clicks on the "Pay per Item" button in "paymentWindow"
     And the user selects the following items in the pop-up, click "OK" button
-    |itemsInPayPerItemPopup                                               |
+    |itemsInPayPerItemPopup                                   |
     | {"auto_id": "PayPerItemItemPrice_47587-56634-47708"}    |
     And the user clicks on the "Apply Payment for Cash Payment" button in "paymentWindow"
     Then the sum of the "Tendered" amount and the "Due" amount should be equal to the "Total" amount

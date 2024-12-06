@@ -20,8 +20,8 @@ Feature:childPricingForDrinks Feature
     And the user clicks on the "close" button on the till pop-up in "orderWindow"
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
      When the user adds combo item to the order
-       | menuOption                  |    itemName                            | comboSize        |        autoIdOfItem      |
-       | {"auto_id": "47587-56634"}  | {"title":"#2A BACON ULTIMATE CHBURGER"}| {"title":"Small"}|   47587-56634-105597-803      |
+       | menuOption                  |    itemName                            | comboSize        |        autoIdOfItem           |  category |
+       | {"auto_id": "47587-56634"}  | {"title":"#2A BACON ULTIMATE CHBURGER"}| {"title":"Small"}|   47587-56634-105597-803      | Breakfast |
      Then each item should display in the cart view on the left side of the screen
       | itemsInCart                                            |
       | {"title":"BACON ULTIMATE CHEESEBURGER CMB, Small" }    |
