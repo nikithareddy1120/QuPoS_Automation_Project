@@ -158,3 +158,6 @@ def step_impl(context):
 def step_impl(context):
     orderWindow().verifyPaymentSuccessful()
 
+@step(u'the user clicks on "NO THANKS" button')
+def step_impl(context):
+    orderWindow().clickNoThanksButton()

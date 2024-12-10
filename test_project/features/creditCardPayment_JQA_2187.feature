@@ -19,7 +19,6 @@ Feature:creditCardPayment Feature
     When the user select "Claim" on an available till and verify the "Till, Successfully Claimed!" text and "current cash"
     And the user clicks on the "close" button on the till pop-up in "orderWindow"
     Then the user should be able to see the "Drive-Thru" dropdown in "orderWindow"
-
    When the user adds multiple items to the order
     | menuOption                  |    itemName                          |        autoIdOfItem      |  category  |
     | {"auto_id": "47587-56634"}  |  {"title": "HAMBURGER"}              |   47587-56634-48003      | Breakfast  |
@@ -27,11 +26,9 @@ Feature:creditCardPayment Feature
     | itemsInCart                                                                                |
     | {"title": "HAMBURGER", "auto_id":"CheckItemText_Item-0-47587-56634-48003"}                  |
     And the subtotal, tax, and total should update as each item is added
-
-
     When the user clicks on the "Payment" button in "orderWindow"
     Then the user should be able to see the "ROUND UP DONATION" popup in "orderWindow"
-    When the user clicks on the "NO THANKS" button in "orderWindow"
+    When the user clicks on "NO THANKS" button
     Then the user should be able to see the "Offline Credit" payment method in "paymentWindow"
     And the "Total" amount should match the total amount displayed in the cart
     When the user clicks on the "Offline Credit" button in "paymentWindow"

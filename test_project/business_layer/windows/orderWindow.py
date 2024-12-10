@@ -139,3 +139,13 @@ class orderWindow:
             logging.info("Payment was successful")
         else:
             logging.error("Payment was not successful")
+
+    def clickNoThanksButton(self):
+        noThanks = driver.utilities.waitUntilVisible(driver.app, locators['orderWindow']['NO THANKS'],
+                                                             waits_config['shortWait'])
+        if noThanks:
+            logging.info("NO THANKS option is displayed, clicking on it")
+            driver.utilities.click_button(driver.app, locators['orderWindow']['NO THANKS'], "NO THANKS button",
+                                          waits_config['veryShortWait'])
+        else:
+            logging.info("NO THANKS option is not displayed")

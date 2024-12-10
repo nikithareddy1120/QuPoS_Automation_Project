@@ -38,7 +38,7 @@ Feature:childPricingForSides Feature
     Then the upCharge for 3 EGG ROLLS should be added to the total amount, and the item should be displayed in the cart view
     When the user clicks on the "Payment" button in "orderWindow"
     Then the user should be able to see the "ROUND UP DONATION" popup in "orderWindow"
-    When the user clicks on the "NO THANKS" button in "orderWindow"
+    When the user clicks on "NO THANKS" button
     Then the user should be able to see the "Cash" payment method in "paymentWindow"
     And the "Total" amount should match the total amount displayed in the cart
     When the user clicks on the "Cash" button in "paymentWindow"
